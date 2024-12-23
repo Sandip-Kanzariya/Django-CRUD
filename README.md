@@ -11,3 +11,8 @@ python manage.py startapp home
 python manage.py makemigrations 
 python manage.py migrate 
 ```
+
+### Create Superuser (If you want)
+```commandline
+python manage.py createsuperuser
+```
