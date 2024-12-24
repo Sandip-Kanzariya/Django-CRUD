@@ -16,3 +16,13 @@ python manage.py migrate
 ```commandline
 python manage.py createsuperuser
 ```
+
+### Run Django Project
+```commandline
+python manage.py runserver 
+```
+
+### Run Test Suite
+```commandline
+python manage.py test
+```
