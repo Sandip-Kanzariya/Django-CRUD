@@ -17,6 +17,7 @@ class TestProductViews(TestCase):
         self.products_url = reverse('products')
         self.create_product_url = reverse('create_product')
         self.update_url = reverse('update_product', args=[self.product.id]) # Check for added product in setUp
+        self.delete_url = reverse('delete_product', args=[self.product.id]) # Check for added product in setUp
 
     # So, it not conflict with state of previous test case
     def tearDown(self):
@@ -86,4 +87,23 @@ class TestProductViews(TestCase):
         })
 
         self.assertEquals(response.status_code, 404) # Page not found
+        self.assertTemplateUsed(response, '404.html')
+
+    def test_delete_product_GET(self):
+        """Test the GET request to 'delete_product' to delete product"""
+        response = self.client.get(self.delete_url)
+        self.assertEquals(response.status_code, 302)  # Redirects to products
+        self.assertTrue(Product.objects.filter(id=self.product.id).exists())
+
+    def test_delete_product_POST(self):
+        """Test the POST request to 'delete_product' to delete product"""
+        response = self.client.post(self.delete_url)
+        self.assertEquals(response.status_code, 302)  # Redirects to products
+        self.assertFalse(Product.objects.filter(id=self.product.id).exists())
+
+    def test_delete_product_invalid_id(self):
+        """Test the request to 'delete_product' to delete product which is not exist."""
+        invalid_delete_url = reverse('delete_product', args=[999])
+        response = self.client.post(invalid_delete_url)
+        self.assertEquals(response.status_code, 404)
         self.assertTemplateUsed(response, '404.html')
