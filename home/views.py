@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from home.models import Product
+from home.models import Product, PRODUCT_TYPE, STATUS
+
 
 # Create your views here.
 
@@ -9,6 +10,33 @@ def products(request):
 
     # Pass the products to the template
     return render(request, 'products.html', {'products': product_list})
+
+def create_product(request):
+
+    if request.method == "POST":
+        name = request.POST.get('name')
+        category = request.POST.get('category')
+        price = request.POST.get('price')
+        status = request.POST.get('status')
+
+        # category = category.title()
+        # Select Category based on value
+        for pt in PRODUCT_TYPE:
+            if pt[0] == category:
+                category = pt[1]
+                break
+
+        # Create a new product instance and save it
+        product = Product.objects.create(
+            name=name,
+            category=category,
+            price=price,
+            status=status
+        )
+
+        return redirect('products')
+
+    return render(request, 'create-product.html', {'product_type' : PRODUCT_TYPE, 'status':STATUS})
 
 def update_product(request, pk):
     # Find the product with id = pk
