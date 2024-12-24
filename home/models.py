@@ -27,4 +27,23 @@ class Product(models.Model):
     date_updated = models.DateField(auto_now=True)
 
     def __str__(self):
+        """
+            Returns a string representation of the Product instance.
+
+            The string format is: "<name> [<category>]"
+
+            Returns:
+                str: A string that represents the product with its name and category.
+
+            Example:
+                product = Product.objects.create(
+                    name="Test Product",
+                    category="Electronics",
+                    price=100.00,
+                    status=1
+                )
+                print(product)
+            Output: Test Product [Electronics]
+
+        """
         return f"{self.name} [{self.category}]"

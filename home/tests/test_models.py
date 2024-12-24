@@ -2,6 +2,7 @@ from django.test import TestCase
 from ..models import PRODUCT_TYPE, STATUS, Product
 
 class TestProductModels(TestCase):
+    """Tests for methods of Product Model"""
 
     def test_str_method(self):
         """Test the __str__ method of the Product model."""

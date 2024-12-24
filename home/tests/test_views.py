@@ -3,6 +3,7 @@ from django.urls import reverse
 from ..models import Product, PRODUCT_TYPE, STATUS
 
 class TestProductViews(TestCase):
+    """Tests for views of Product"""
 
     # Automatic invocation
     def setUp(self):
