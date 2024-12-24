@@ -11,30 +11,35 @@
 <table class="table">
   <thead>
     <tr class="table-dark">
-      <th scope="col">Name</th>
       <th scope="col">Category</th>
+      <th scope="col">Name</th>
       <th scope="col">Price</th>
-      <th scope="col">Status</th>
       <th scope="col">Update</th>
       <th scope="col">Delete</th>
+      <th scope="col">Status</th>
     </tr>
   </thead>
   <tbody>
     {% for product in products %}
         <tr>
-            <td>{{ product.name }}</td>
             <td>{{ product.get_category_display }}</td>
+            <td>{{ product.name }}</td>
             <td>{{ product.price }}</td>
+            <td>
+                <a href="{% url 'update_product' product.id %}" class="btn btn-primary btn-sm">Update</a>
+            </td>
+            <td>
+                <form action="{% url 'delete_product' product.id %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
             {% if product.status == 0 %}
                 <td class="table-danger">{{ product.get_status_display }}</td>
             {% endif %}
             {% if product.status == 1 %}
                 <td class="table-success">{{ product.get_status_display }}</td>
             {% endif %}
-            <td>
-                <a href="{% url 'update_product' product.id %}" class="btn btn-primary btn-sm">Update</a>
-            </td>
-            <td>Delete</td>
         </tr>
     {% endfor %}
   </tbody>
