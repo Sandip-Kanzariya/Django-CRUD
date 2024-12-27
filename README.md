@@ -7,7 +7,7 @@
 git clone https://github.com/Sandip-Kanzariya/Django-CRUD.git
 ```
 
-### Create Virtual Environment
+### Create Virtual Environment (py = python)
 
 ```bash
 python -m venv .venv
